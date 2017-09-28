@@ -1,0 +1,83 @@
+using System;
+
+namespace spil
+{   
+    public class TicTacToeMenu
+    {
+        private bool Turn;
+
+        TicTacToe ticTacToe {get; set; }
+        public void Show()
+        {
+            bool running = true;
+            string choice = "";
+            do
+            {
+                ShowMenu();
+                choice = GetUserChoice();
+                switch (choice)
+                {
+                    case "1": DoActionFor1(); break;
+                    case "2": DoActionFor2(); break;
+                    case "3": DoActionFor3(); break;
+                    case "0": running = false; break;
+                    default : ShowMenuSelectionError(); break;
+                }
+            } while (running);
+        }
+
+        private void ShowMenu()
+        {
+            Console.Clear();
+            if (ticTacToe != null)
+            {
+                Console.WriteLine(ticTacToe.GetGameBoardView());
+            }
+            Console.WriteLine("Tic Tac Toe");
+            Console.WriteLine();
+            Console.WriteLine("1. Start new game");
+            Console.WriteLine("2. sæt en brik);
+            Console.WriteLine("0. Exit");
+        }
+
+        private string GetUserChoice()
+        {
+            Console.WriteLine();
+            Console.Write("Press one of the keys to continue: ");
+            return Console.ReadLine();
+        }
+
+        private void ShowMenuSelectionError()
+        {
+            Console.WriteLine("Invalid choice.");
+            Console.ReadLine();
+        }
+
+        private void DoActionFor1()
+        {
+            ticTacToe = new TicTacToe();
+        }
+        private void DoActionFor2()
+        {
+            Console.WriteLine("Player 1's turn");
+
+            int x, y = 0;
+            Console.WriteLine("Choose Row (y)");
+                y = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Choose Coloumn (x)");
+                 x = Convert.ToInt32(Console.ReadLine());
+
+            if (y < 4 && x < 4 && ticTacToe.GameBoard[x - 1, y - 1] == ' ')
+            {
+                ticTacToe.GameBoard[x - 1, y - 1] = 'X';
+                Turn = false;
+            }
+        }
+        private void DoActionFor3()
+        {
+            Console.WriteLine("skriv koden til at få spillerens input til at flytte en brik");
+            Console.ReadLine();
+        }
+    }
+}
